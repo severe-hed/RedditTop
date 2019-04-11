@@ -37,11 +37,11 @@
                                 <color key="textColor" red="0.47058823529411764" green="0.48627450980392156" blue="0.49411764705882355" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="dyE-hU-54y">
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dyE-hU-54y">
                                 <rect key="frame" x="20" y="41.5" width="372" height="183"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7kX-fa-5nP">
-                                        <rect key="frame" x="0.0" y="1" width="212" height="181"/>
+                                        <rect key="frame" x="0.0" y="1" width="224" height="181"/>
                                         <string key="text">This is Dr Katie Bouman the computer scientist behind the first ever image of a black-hole. She developed the algorithm that turned telescopic data into the historic photo we see today.</string>
                                         <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="18"/>
                                         <nil key="textColor"/>
@@ -99,7 +99,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="kfm-7B-nMC" secondAttribute="trailing" constant="1" id="6E4-eS-p0X"/>
-                    <constraint firstAttribute="bottom" secondItem="kfm-7B-nMC" secondAttribute="bottom" constant="5" id="g3Z-mB-5NR"/>
+                    <constraint firstAttribute="bottom" secondItem="kfm-7B-nMC" secondAttribute="bottom" priority="999" constant="5" id="g3Z-mB-5NR"/>
                     <constraint firstItem="kfm-7B-nMC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="1" id="q4u-ue-hEu"/>
                     <constraint firstItem="kfm-7B-nMC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="wIQ-lm-tiZ"/>
                 </constraints>
@@ -111,6 +111,7 @@
                 <outlet property="embeddedView" destination="kfm-7B-nMC" id="7Hl-DY-MNP"/>
                 <outlet property="infoLabel" destination="9wX-Mb-TCZ" id="Rno-bR-G5I"/>
                 <outlet property="mainTextLabel" destination="7kX-fa-5nP" id="XZH-xR-cZ3"/>
+                <outlet property="stackView" destination="dyE-hU-54y" id="Gbi-Ea-4MC"/>
                 <outlet property="subredditLabel" destination="eRn-um-bNu" id="YV7-Vb-u9R"/>
                 <outlet property="thumbnailImageView" destination="hzy-W0-fx2" id="Jiq-X9-gH6"/>
             </connections>

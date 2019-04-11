@@ -18,7 +18,8 @@ final class PostCell: UITableViewCell {
     @IBOutlet private weak var subredditLabel: UILabel!
     @IBOutlet private weak var infoLabel: UILabel!
     @IBOutlet private weak var commentsLabel: UILabel!
-    @IBOutlet weak var embeddedView: UIView!
+    @IBOutlet private weak var embeddedView: UIView!
+    @IBOutlet private weak var stackView: UIStackView!
     
     weak var delegate: PostCellDelegate?
     
