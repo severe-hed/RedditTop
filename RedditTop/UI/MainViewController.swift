@@ -12,6 +12,7 @@ final class MainViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet private weak var tableView: UITableView!
     private let refreshControl = UIRefreshControl()
+    private var urlToOpen: URL?
     
     var presenter: MainPresenter!
     
@@ -75,7 +76,6 @@ final class MainViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         if indexPaths.last?.row == presenter.posts.count - 1 {
-            print("load")
             presenter.loadMore()
         }
     }
@@ -83,7 +83,16 @@ final class MainViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let post = presenter.posts[indexPath.row]
-        UIApplication.shared.open(post.url, options: [:], completionHandler: nil)
+        self.urlToOpen = post.url
+        self.performSegue(withIdentifier: "ShowWebView", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowWebView" {
+            if let destination = segue.destination as? WebViewController {
+                destination.url = self.urlToOpen
+            }
+        }
     }
     
     //MARK: - PostCellDelegate
@@ -92,8 +101,6 @@ final class MainViewController: UIViewController, UITableViewDelegate, UITableVi
         if let indexPath = tableView.indexPath(for: sender) {
             if let url = presenter.posts[indexPath.row].shareURL {
                 let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-//                activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
-                
                 self.present(activityViewController, animated: true, completion: nil)
             }
             
