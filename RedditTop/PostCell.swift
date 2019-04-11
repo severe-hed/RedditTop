@@ -8,13 +8,19 @@
 
 import UIKit
 
-class PostCell: UITableViewCell {
+protocol PostCellDelegate: class {
+    func postCellShareAction(_ sender: PostCell)
+}
+
+final class PostCell: UITableViewCell {
     @IBOutlet private weak var thumbnailImageView: UIImageView!
     @IBOutlet private weak var mainTextLabel: UILabel!
     @IBOutlet private weak var subredditLabel: UILabel!
     @IBOutlet private weak var infoLabel: UILabel!
     @IBOutlet private weak var commentsLabel: UILabel!
     @IBOutlet weak var embeddedView: UIView!
+    
+    weak var delegate: PostCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,5 +43,6 @@ class PostCell: UITableViewCell {
         }
     }
     @IBAction func shareAction(_ sender: Any) {
+        self.delegate?.postCellShareAction(self)
     }
 }

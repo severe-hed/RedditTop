@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+final class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching, PostCellDelegate {
     
     @IBOutlet private weak var tableView: UITableView!
     private let refreshControl = UIRefreshControl()
@@ -36,7 +36,7 @@ final class MainViewController: UIViewController, UITableViewDelegate, UITableVi
         refreshControl.beginRefreshing()
         
         self.presenter = MainPresenter(controller: self)
-        presenter.reload()
+        presenter.load()
     }
     
     @objc func refreshAction() {
@@ -46,6 +46,10 @@ final class MainViewController: UIViewController, UITableViewDelegate, UITableVi
     func reloadData() {
         tableView.reloadData()
         refreshControl.endRefreshing()
+    }
+    
+    func loadedMore(count: Int) {
+        tableView.reloadData()
     }
     
     func showError(_ error: NSError) {
@@ -65,7 +69,35 @@ final class MainViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(ofClass: PostCell.self, indexPath: indexPath)
         cell.configure(post: presenter.posts[indexPath.row])
+        cell.delegate = self
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        if indexPaths.last?.row == presenter.posts.count - 1 {
+            print("load")
+            presenter.loadMore()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let post = presenter.posts[indexPath.row]
+        UIApplication.shared.open(post.url, options: [:], completionHandler: nil)
+    }
+    
+    //MARK: - PostCellDelegate
+    
+    func postCellShareAction(_ sender: PostCell) {
+        if let indexPath = tableView.indexPath(for: sender) {
+            if let url = presenter.posts[indexPath.row].shareURL {
+                let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+//                activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+                
+                self.present(activityViewController, animated: true, completion: nil)
+            }
+            
+        }
     }
 }
 

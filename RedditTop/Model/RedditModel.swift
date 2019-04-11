@@ -29,6 +29,8 @@ fileprivate enum PostKeys: String, CodingKey {
     case created_utc
 }
 
+fileprivate let shareURLPrefix = "https://www.reddit.com"
+
 struct RedditListing: Decodable {
     let posts: [RedditPost]
     
@@ -50,7 +52,7 @@ struct RedditPost: Decodable {
     let author: String
     let created_utc: TimeInterval
     
-    
+    let shareURL: URL?
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: DataKey.self).nestedContainer(keyedBy: PostKeys.self, forKey: .data)
@@ -70,5 +72,7 @@ struct RedditPost: Decodable {
         else {
             self.thumbnail = nil
         }
+        
+        self.shareURL = URL(string: shareURLPrefix + self.permalink)
     }
 }
