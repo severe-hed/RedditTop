@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 fileprivate enum DataKey: String, CodingKey {
     case data
@@ -40,7 +41,7 @@ struct RedditListing: Decodable {
 
 struct RedditPost: Decodable {
     let title: String
-    let thumbnail: URL
+    let thumbnail: URL?
     let name: String
     let subreddit_name_prefixed: String
     let url: URL
@@ -54,7 +55,6 @@ struct RedditPost: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: DataKey.self).nestedContainer(keyedBy: PostKeys.self, forKey: .data)
         title = try container.decode(String.self, forKey: .title)
-        thumbnail = try container.decode(URL.self, forKey: .thumbnail)
         name = try container.decode(String.self, forKey: .name)
         subreddit_name_prefixed = try container.decode(String.self, forKey: .subreddit_name_prefixed)
         url = try container.decode(URL.self, forKey: .url)
@@ -62,5 +62,13 @@ struct RedditPost: Decodable {
         num_comments = try container.decode(Int.self, forKey: .num_comments)
         author = try container.decode(String.self, forKey: .author)
         created_utc = try container.decode(TimeInterval.self, forKey: .created_utc)
+        
+        let thumbnail = try container.decode(URL.self, forKey: .thumbnail)
+        if thumbnail.scheme != nil {
+            self.thumbnail = thumbnail
+        }
+        else {
+            self.thumbnail = nil
+        }
     }
 }

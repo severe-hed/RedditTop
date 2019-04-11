@@ -13,11 +13,29 @@ class PostCell: UITableViewCell {
     @IBOutlet private weak var mainTextLabel: UILabel!
     @IBOutlet private weak var subredditLabel: UILabel!
     @IBOutlet private weak var infoLabel: UILabel!
+    @IBOutlet private weak var commentsLabel: UILabel!
+    @IBOutlet weak var embeddedView: UIView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        embeddedView.layer.cornerRadius = 3
+        embeddedView.layer.borderColor = UIColor.darkGray.cgColor
+        embeddedView.layer.borderWidth = 1
+    }
     
     func configure(post: RedditPost) {
         mainTextLabel.text = post.title
         subredditLabel.text = post.subreddit_name_prefixed
         infoLabel.text = "Posted by u/\(post.author) \(post.created_utc.hoursAgoSinceNow())"
-        thumbnailImageView.loadFromURL(post.thumbnail)
+        commentsLabel.text = "\(post.num_comments) Comments"
+        
+        if let thumbnail = post.thumbnail {
+            thumbnailImageView.loadFromURL(thumbnail)
+        }
+        else {
+            thumbnailImageView.isHidden = true
+        }
+    }
+    @IBAction func shareAction(_ sender: Any) {
     }
 }

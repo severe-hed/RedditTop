@@ -11,6 +11,7 @@ import UIKit
 
 extension UIImageView {
     func loadFromURL(_ url: URL) {
+        self.isHidden = false
         let cache = URLCache.shared
         let request = URLRequest(url: url)
         if let response = cache.cachedResponse(for: request), let image = UIImage(data: response.data) {
@@ -35,6 +36,7 @@ extension UIImageView {
                     self.image = resultImage
                     indicator.stopAnimating()
                     indicator.removeFromSuperview()
+                    self.isHidden = resultImage == nil
                 }
                 
             }.resume()
