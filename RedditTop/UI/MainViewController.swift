@@ -23,7 +23,7 @@ final class MainViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.estimatedRowHeight = 50
+        tableView.estimatedRowHeight = 200
         tableView.rowHeight = UITableView.automaticDimension
         tableView.registerCells(PostCell.self)
         tableView.addSubview(refreshControl)
