@@ -27,12 +27,7 @@ final class MainViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.rowHeight = UITableView.automaticDimension
         tableView.registerCells(PostCell.self)
         tableView.addSubview(refreshControl)
-        
-        NotificationCenter.default.addObserver(self.tableView!,
-                                               selector: #selector(UITableView.reloadData),
-                                               name: UIContentSizeCategory.didChangeNotification,
-                                               object: nil)
-        
+                
         refreshControl.addTarget(self, action: #selector(refreshAction), for: .valueChanged)
         refreshControl.beginRefreshing()
         
