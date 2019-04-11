@@ -17,11 +17,16 @@ class MainPresenter {
         self.controller = controller
     }
     
+    func saveState(_ index: Int) {
+        UserDefaults.standard.setValue(self.posts[index].name, forKey: "lastViewedPost")
+        UserDefaults.standard.synchronize()
+    }
+    
     func load() {
         if isLoading { return }
         isLoading = true
-        
-        RedditApiManager.shared.fetchTop(limit: 25, after: nil) { (result) in
+        var after: String? = UserDefaults.standard.string(forKey: "lastViewedPost")
+        RedditApiManager.shared.fetchTop(limit: 25, after: after) { (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let posts):

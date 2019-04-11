@@ -30,7 +30,7 @@ final class RedditApiManager {
         }
         let cache = URLCache.shared
         let request = URLRequest(url: url)
-        if !reloadCache, after == nil, let response = cache.cachedResponse(for: request) {
+        if !reloadCache, let response = cache.cachedResponse(for: request) {
             let data = response.data
             DispatchQueue.global().async {
                 self.processResponseData(data: data, completion)
