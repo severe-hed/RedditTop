@@ -49,6 +49,7 @@ final class MainViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func showError(_ error: NSError) {
+        refreshControl.endRefreshing()
         let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
         present(alertController, animated: true, completion: nil)
