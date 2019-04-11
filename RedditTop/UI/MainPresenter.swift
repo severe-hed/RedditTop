@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MainPresenter {
+final class MainPresenter {
     private(set) var posts: [RedditPost] = []
     weak var controller: MainViewController?
     private var isLoading: Bool = false
@@ -25,7 +25,7 @@ class MainPresenter {
     func load() {
         if isLoading { return }
         isLoading = true
-        var after: String? = UserDefaults.standard.string(forKey: "lastViewedPost")
+        let after: String? = UserDefaults.standard.string(forKey: "lastViewedPost")
         RedditApiManager.shared.fetchTop(limit: 25, after: after) { (result) in
             DispatchQueue.main.async {
                 switch result {
