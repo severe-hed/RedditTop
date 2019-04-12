@@ -1,5 +1,5 @@
 //
-//  WebViewController.swift
+//  PostViewController.swift
 //  RedditTop
 //
 //  Created by Sergey Khliustin on 4/11/19.
@@ -9,19 +9,19 @@
 import UIKit
 import WebKit
 
-final class WebViewController: UIViewController {
+final class PostViewController: UIViewController {
     @IBOutlet private weak var webView: WKWebView!
-    var url: URL?
+    var post: RedditPost?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let url = url {
+        if let url = post?.url {
             self.openURL(url: url)
         }
     }
 
-    func openURL(url: URL) {
+    private func openURL(url: URL) {
         let request = URLRequest(url: url)
         webView.load(request)
     }

@@ -8,12 +8,21 @@
 
 import Foundation
 
-final class MainPresenter {
+protocol MainPresenterProtocol {
+    func saveState(_ index: Int)
+    func restoreState()
+    func reload()
+    func loadMore()
+    var posts: [RedditPost] { get }
+}
+
+final class MainPresenter: MainPresenterProtocol {
+    weak var controller: MainControllerProtocol?
+    
     private(set) var posts: [RedditPost] = []
-    weak var controller: MainViewController?
     private var isLoading: Bool = false
     
-    init(controller: MainViewController) {
+    init(controller: MainControllerProtocol) {
         self.controller = controller
     }
     
@@ -22,7 +31,7 @@ final class MainPresenter {
         UserDefaults.standard.synchronize()
     }
     
-    func load() {
+    func restoreState() {
         if isLoading { return }
         isLoading = true
         let after: String? = UserDefaults.standard.string(forKey: "lastViewedPost")
@@ -68,7 +77,7 @@ final class MainPresenter {
                 switch result {
                 case .success(let posts):
                     self.posts.append(contentsOf: posts)
-                    self.controller?.loadedMore(count: posts.count)
+                    self.controller?.appendData(count: posts.count)
                 case .failure(let error):
                     self.controller?.showError(error)
                 }

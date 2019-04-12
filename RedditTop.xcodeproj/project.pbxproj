@@ -17,7 +17,7 @@
 		3F1D21BD225F8A29007D0736 /* TimeInterval+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1D21BC225F8A29007D0736 /* TimeInterval+Additions.swift */; };
 		3F7CAEAA225FAC8400DDB768 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7CAEA5225FAC8400DDB768 /* MainViewController.swift */; };
 		3F7CAEAB225FAC8400DDB768 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7CAEA6225FAC8400DDB768 /* MainPresenter.swift */; };
-		3F7CAEAC225FAC8400DDB768 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7CAEA7225FAC8400DDB768 /* WebViewController.swift */; };
+		3F7CAEAC225FAC8400DDB768 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7CAEA7225FAC8400DDB768 /* PostViewController.swift */; };
 		3F7CAEAD225FAC8400DDB768 /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F7CAEA8225FAC8400DDB768 /* PostCell.xib */; };
 		3F7CAEAE225FAC8400DDB768 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7CAEA9225FAC8400DDB768 /* PostCell.swift */; };
 		3F7CAEB0225FACA200DDB768 /* RedditApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7CAEAF225FACA200DDB768 /* RedditApiManager.swift */; };
@@ -37,7 +37,7 @@
 		3F1D21BC225F8A29007D0736 /* TimeInterval+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Additions.swift"; sourceTree = "<group>"; };
 		3F7CAEA5225FAC8400DDB768 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3F7CAEA6225FAC8400DDB768 /* MainPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
-		3F7CAEA7225FAC8400DDB768 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		3F7CAEA7225FAC8400DDB768 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		3F7CAEA8225FAC8400DDB768 /* PostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostCell.xib; sourceTree = "<group>"; };
 		3F7CAEA9225FAC8400DDB768 /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		3F7CAEAF225FACA200DDB768 /* RedditApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedditApiManager.swift; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 			children = (
 				3F7CAEA5225FAC8400DDB768 /* MainViewController.swift */,
 				3F7CAEA6225FAC8400DDB768 /* MainPresenter.swift */,
-				3F7CAEA7225FAC8400DDB768 /* WebViewController.swift */,
+				3F7CAEA7225FAC8400DDB768 /* PostViewController.swift */,
 				3F7CAEA8225FAC8400DDB768 /* PostCell.xib */,
 				3F7CAEA9225FAC8400DDB768 /* PostCell.swift */,
 			);
@@ -206,7 +206,7 @@
 				3F7CAEAE225FAC8400DDB768 /* PostCell.swift in Sources */,
 				3F7CAEAB225FAC8400DDB768 /* MainPresenter.swift in Sources */,
 				3F1D21B9225F8333007D0736 /* UIImageView+Additions.swift in Sources */,
-				3F7CAEAC225FAC8400DDB768 /* WebViewController.swift in Sources */,
+				3F7CAEAC225FAC8400DDB768 /* PostViewController.swift in Sources */,
 				3F7CAEB0225FACA200DDB768 /* RedditApiManager.swift in Sources */,
 				3F1D21B4225F6EA3007D0736 /* RedditModel.swift in Sources */,
 			);
@@ -363,7 +363,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.home.RedditTop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -381,7 +381,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.home.RedditTop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

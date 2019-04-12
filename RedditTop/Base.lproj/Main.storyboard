@@ -63,10 +63,10 @@
             </objects>
             <point key="canvasLocation" x="-2507" y="-631"/>
         </scene>
-        <!--Web View Controller-->
+        <!--Post View Controller-->
         <scene sceneID="ylV-0W-T08">
             <objects>
-                <viewController id="NcT-SG-okJ" customClass="WebViewController" customModule="RedditTop" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="NcT-SG-okJ" customClass="PostViewController" customModule="RedditTop" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1xI-Y7-pka">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

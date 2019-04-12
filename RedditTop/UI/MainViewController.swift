@@ -8,18 +8,18 @@
 
 import UIKit
 
-final class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching, PostCellDelegate {
+protocol MainControllerProtocol: class {
+    func reloadData()
+    func appendData(count: Int)
+    func showError(_ error: NSError)
+}
+
+final class MainViewController: UIViewController, MainControllerProtocol, UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching, PostCellDelegate {
     
     @IBOutlet private weak var tableView: UITableView!
     private let refreshControl = UIRefreshControl()
-    private var urlToOpen: URL?
     
-    var presenter: MainPresenter!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-    }
+    private var presenter: MainPresenterProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,19 +32,21 @@ final class MainViewController: UIViewController, UITableViewDelegate, UITableVi
         refreshControl.beginRefreshing()
         
         self.presenter = MainPresenter(controller: self)
-        presenter.load()
+        presenter.restoreState()
     }
     
-    @objc func refreshAction() {
+    @objc private func refreshAction() {
         presenter.reload()
     }
+    
+    //MARK: - MainControllerProtocol
     
     func reloadData() {
         tableView.reloadData()
         refreshControl.endRefreshing()
     }
     
-    func loadedMore(count: Int) {
+    func appendData(count: Int) {
         tableView.reloadData()
     }
     
@@ -54,6 +56,22 @@ final class MainViewController: UIViewController, UITableViewDelegate, UITableVi
         alertController.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
         present(alertController, animated: true, completion: nil)
     }
+    
+    //MARK: -
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowWebView",
+            let destination = segue.destination as? PostViewController,
+            let indexPath = tableView.indexPathForSelectedRow {
+            
+            let post = presenter.posts[indexPath.row]
+            destination.post = post
+            
+            tableView.deselectRow(at: indexPath, animated: false)
+        }
+    }
+    
+    //MARK: - UITableView
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -83,18 +101,7 @@ final class MainViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let post = presenter.posts[indexPath.row]
-        self.urlToOpen = post.url
         self.performSegue(withIdentifier: "ShowWebView", sender: nil)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowWebView" {
-            if let destination = segue.destination as? WebViewController {
-                destination.url = self.urlToOpen
-            }
-        }
     }
     
     //MARK: - PostCellDelegate
