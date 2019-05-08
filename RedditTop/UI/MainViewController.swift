@@ -14,7 +14,7 @@ protocol MainControllerProtocol: class {
     func showError(_ error: NSError)
 }
 
-final class MainViewController: UIViewController, MainControllerProtocol, UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching, PostCellDelegate {
+final class MainViewController: UIViewController, MainControllerProtocol, UITableViewDelegate, UITableViewDataSource, PostCellDelegate {
     
     @IBOutlet private weak var tableView: UITableView!
     private let refreshControl = UIRefreshControl()
@@ -73,6 +73,16 @@ final class MainViewController: UIViewController, MainControllerProtocol, UITabl
     
     //MARK: - UITableView
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (self.tableView.contentSize.height > 0 &&
+            self.tableView.contentOffset.y > 0 &&
+            self.tableView.contentOffset.y + self.tableView.safeAreaInsets.top + self.tableView.safeAreaInsets.bottom >=
+            (self.tableView.contentSize.height - self.tableView.bounds.size.height))
+        {
+            self.presenter.loadMore()
+        }
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -86,12 +96,6 @@ final class MainViewController: UIViewController, MainControllerProtocol, UITabl
         cell.configure(post: presenter.posts[indexPath.row])
         cell.delegate = self
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        if indexPaths.last?.row == presenter.posts.count - 1 {
-            presenter.loadMore()
-        }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
